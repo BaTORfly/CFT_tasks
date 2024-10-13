@@ -1,2 +1,3 @@
 rootProject.name = '2024_2_biliktuev'
+include 'task1'
 
