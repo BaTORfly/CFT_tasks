@@ -3,10 +3,10 @@ package ru.shift;
 import java.util.Scanner;
 
 public class Main {
-    private static final char cellSeparator = '|';
-    private static final String dash = "-";
-    private static final char dashSeparator = '+';
-    private static final String spaceBar = " ";
+    private static final char CELL_SEPARATOR = '|';
+    private static final String DASH = "-";
+    private static final char DASH_SEPARATOR = '+';
+    private static final String SPACE_BAR = " ";
     /**
      * Метод для корректного получения целочисленного числа от 1 до 32 с консоли
      * @return корректно введёное число
@@ -40,10 +40,10 @@ public class Main {
      */
     private static String getBetweenTheLines(int tableSize, int firstColumnWidth, int cellWidth) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dash.repeat(firstColumnWidth));
-        String dashForCell = dash.repeat(cellWidth);
+        sb.append(DASH.repeat(firstColumnWidth));
+        String dashForCell = DASH.repeat(cellWidth);
         for (int i = 1; i <= tableSize; i++) {
-            sb.append(dashSeparator);
+            sb.append(DASH_SEPARATOR);
             sb.append(dashForCell);
         }
         return sb.toString();
@@ -56,7 +56,7 @@ public class Main {
      * @return строка с пробелами, для подгона числа под клетку
      */
     private static String getNumberInCell(int cellWidth, int number){
-        return spaceBar.repeat(cellWidth - String.valueOf(number).length()) + String.valueOf(number);
+        return SPACE_BAR.repeat(cellWidth - String.valueOf(number).length()) + String.valueOf(number);
     }
     /**
      * Метод вывода таблицы умножения в консоль
@@ -69,10 +69,10 @@ public class Main {
         int firstColumnWidth = String.valueOf(tableSize).length();
         String betweenTheLines = getBetweenTheLines(tableSize, firstColumnWidth, cellWidth);
 
-        tableLine.append(spaceBar.repeat(firstColumnWidth));
+        tableLine.append(SPACE_BAR.repeat(firstColumnWidth));
 
         for (int i = 1; i <= tableSize; i++) {
-            tableLine.append(cellSeparator).append(getNumberInCell(cellWidth, i));
+            tableLine.append(CELL_SEPARATOR).append(getNumberInCell(cellWidth, i));
         }
         tableLine.append("\n").append(betweenTheLines).append("\n");
         System.out.print(tableLine);
@@ -81,7 +81,7 @@ public class Main {
         for (int i = 1; i <= tableSize ; i++) {
             tableLine.append(getNumberInCell(firstColumnWidth, i));
             for (int j = 1; j <= tableSize; j++) {
-                tableLine.append(cellSeparator).append(getNumberInCell(cellWidth, i * j));
+                tableLine.append(CELL_SEPARATOR).append(getNumberInCell(cellWidth, i * j));
             }
             tableLine.append("\n").append(betweenTheLines).append("\n");
             System.out.print(tableLine);
