@@ -3,6 +3,10 @@ package ru.shift;
 import java.util.Scanner;
 
 public class Main {
+    private static final char cellSeparator = '|';
+    private static final String dash = "-";
+    private static final char dashSeparator = '+';
+    private static final String spaceBar = " ";
     /**
      * Метод для корректного получения целочисленного числа от 1 до 32 с консоли
      * @return корректно введёное число
@@ -36,10 +40,10 @@ public class Main {
      */
     private static String getBetweenTheLines(int tableSize, int firstColumnWidth, int cellWidth) {
         StringBuilder sb = new StringBuilder();
-        sb.append("-".repeat(firstColumnWidth));
-        String dashForCell = "-".repeat(cellWidth);
+        sb.append(dash.repeat(firstColumnWidth));
+        String dashForCell = dash.repeat(cellWidth);
         for (int i = 1; i <= tableSize; i++) {
-            sb.append("+");
+            sb.append(dashSeparator);
             sb.append(dashForCell);
         }
         return sb.toString();
@@ -52,10 +56,7 @@ public class Main {
      * @return строка с пробелами, для подгона числа под клетку
      */
     private static String getNumberInCell(int cellWidth, int number){
-        StringBuilder sb = new StringBuilder();
-        sb.append(" ".repeat(cellWidth - String.valueOf(number).length()));
-        sb.append(number);
-        return sb.toString();
+        return spaceBar.repeat(cellWidth - String.valueOf(number).length()) + String.valueOf(number);
     }
     /**
      * Метод вывода таблицы умножения в консоль
@@ -63,27 +64,29 @@ public class Main {
      */
     private static void tableOutput(int tableSize)
     {
-        StringBuilder table = new StringBuilder();
-        char cellSeparator = '|';
+        StringBuilder tableLine = new StringBuilder();
         int cellWidth = String.valueOf(tableSize * tableSize).length();
         int firstColumnWidth = String.valueOf(tableSize).length();
         String betweenTheLines = getBetweenTheLines(tableSize, firstColumnWidth, cellWidth);
 
-        table.append(" ".repeat(firstColumnWidth));
+        tableLine.append(spaceBar.repeat(firstColumnWidth));
 
         for (int i = 1; i <= tableSize; i++) {
-            table.append(cellSeparator).append(getNumberInCell(cellWidth, i));
+            tableLine.append(cellSeparator).append(getNumberInCell(cellWidth, i));
         }
-        table.append("\n").append(betweenTheLines).append("\n");
+        tableLine.append("\n").append(betweenTheLines).append("\n");
+        System.out.print(tableLine);
+        tableLine.setLength(0);
 
         for (int i = 1; i <= tableSize ; i++) {
-            table.append(getNumberInCell(firstColumnWidth, i));
+            tableLine.append(getNumberInCell(firstColumnWidth, i));
             for (int j = 1; j <= tableSize; j++) {
-                table.append(cellSeparator).append(getNumberInCell(cellWidth, i * j));
+                tableLine.append(cellSeparator).append(getNumberInCell(cellWidth, i * j));
             }
-            table.append("\n").append(betweenTheLines).append("\n");
+            tableLine.append("\n").append(betweenTheLines).append("\n");
+            System.out.print(tableLine);
+            tableLine.setLength(0);
         }
-        System.out.println(table);
     }
 
     public static void main(String[] args) {
