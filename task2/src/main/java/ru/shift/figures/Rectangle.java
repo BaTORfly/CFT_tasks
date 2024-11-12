@@ -17,14 +17,6 @@ public class Rectangle extends Figure {
         this.diagonal = calculateDiagonal();
     }
 
-    public double getLength() {
-        return length;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
     @Override
     public String figureInfo() {
         return super.figureInfo()
