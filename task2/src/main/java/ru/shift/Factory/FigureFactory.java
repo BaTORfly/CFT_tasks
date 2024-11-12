@@ -28,7 +28,7 @@ public class FigureFactory {
         } catch (IllegalArgumentException ex) {
             log.error(ex.getMessage());
         } catch (TriangleException ex) {
-            log.error(ex.getMessage() + ex.getSides());
+            log.error("{}{}", ex.getMessage(), ex.getSides());
         }
         return figure;
     }

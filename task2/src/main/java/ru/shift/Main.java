@@ -58,7 +58,6 @@ public class Main {
                 System.exit(1);
             }
         }
-
         log.info("The program completed.");
     }
 }
