@@ -1,0 +1,8 @@
+Figure{
+name = RECTANGLE
+area = 21 см.
+perimeter = 42 см.
+length = 7 см.
+width = 3 см.
+diagonal = 7,62 см.
+}
