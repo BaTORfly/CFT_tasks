@@ -23,30 +23,32 @@ public class Main {
 
         log.info("The program is running...");
         CmdParameters cmdParameters = null;
+        ParseCmdParameters cmdParser = new ParseCmdParameters();
         try {
-            ParseCmdParameters cmdParser = new ParseCmdParameters();
             cmdParameters = cmdParser.parse(args);
         } catch (ParseException ex) {
             log.error("Error parsing command-line arguments: " + ex.getMessage());
-            new ParseCmdParameters().printHelp();
-            System.exit(1);
+            cmdParser.printHelp();
         }
 
         FigureParameters figureParameters = null;
         try {
             figureParameters = FigureParameters.readParametersFromFile(cmdParameters.filePath());
-        } catch (IOException ex) {
-            log.error("File reading error: " + ex.getMessage());
-            System.exit(1);
-        } catch (NumberFormatException ex) {
-            log.error("Error: incorrect number format in the file: " + ex.getMessage());
-            System.exit(1);
         } catch (IllegalArgumentException ex) {
             log.error("Error: " + ex.getMessage());
-            System.exit(1);
+        } catch (IOException ex) {
+            log.error("File reading error: " + ex.getMessage());
+        }
+        if (figureParameters == null) {
+            log.error("Failed to load figure parameters. Stopping execution.");
         }
 
-        Figure figure = FigureFactory.createFigure(figureParameters);
+        Figure figure = null;
+        try{
+            figure = FigureFactory.createFigure(figureParameters);
+        } catch(IllegalArgumentException ex){
+            log.error("Error: " + ex.getMessage());
+        }
 
         if (figure != null) {
             String figureInfo = figure.figureInfo();
@@ -55,7 +57,6 @@ public class Main {
                 writer.write(figureInfo);
             } catch (IOException ex) {
                 log.error("Error writing figure info: " + ex.getMessage());
-                System.exit(1);
             }
         }
         log.info("The program completed.");

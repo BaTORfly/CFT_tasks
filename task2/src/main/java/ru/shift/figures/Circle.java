@@ -1,48 +1,49 @@
 package ru.shift.figures;
 
+import java.security.InvalidParameterException;
+import java.util.Arrays;
+
 import static java.lang.Math.PI;
 
 public class Circle extends Figure {
     private final double radius;
-    private double diameter;
 
-    public Circle(String name, double parameters[]) {
-        if (parameters.length != 1)
-            throw new IllegalArgumentException("Circle must have exactly 1 parameter, but found: " + parameters.length);
-        this.name = name;
-        this.radius = parameters[0];
-        this.area = calculateArea();
-        this.perimeter = calculatePerimeter();
-        this.diameter = calculateDiameter();
+    public Circle(FigureTypes name, String parameterLine) {
+        try{
+            this.radius = Math.abs(Double.parseDouble(parameterLine.trim()));
+        }catch(NumberFormatException ex){
+            throw new IllegalArgumentException
+                    ("Error when parsing Circle parameters. Make sure you enter one parameter and it is a number.");
+        }
     }
-
     public double getRadius() {
         return radius;
     }
-
 
     @Override
     public String figureInfo() {
         return super.figureInfo()
                 + "\nradius = " + FORMAT.format(radius) + MEASUREMENT_UNIT
-                + "\ndiameter = " + FORMAT.format(diameter) + MEASUREMENT_UNIT
+                + "\ndiameter = " + FORMAT.format(calculateDiameter()) + MEASUREMENT_UNIT
                 + "\n}";
     }
 
     @Override
+    public FigureTypes getType() {
+        return FigureTypes.CIRCLE;
+    }
+
+    @Override
     public double calculateArea() {
-        area = PI * radius * radius;
-        return area;
+        return PI * radius * radius;
     }
 
     @Override
     public double calculatePerimeter() {
-        perimeter = 2 * PI * radius;
-        return perimeter;
+        return 2 * PI * radius;
     }
 
     public double calculateDiameter(){
-        diameter = radius * 2;
-        return diameter;
+        return radius * 2;
     }
 }

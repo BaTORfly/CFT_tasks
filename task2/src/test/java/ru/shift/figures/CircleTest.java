@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 public class CircleTest {
     private final double EPS = 1e-9;
-    private static final String NAME = "CIRCLE";
-    private static final double[] PARAMETERS = new double[]{6.34};
+    private static final FigureTypes NAME = FigureTypes.CIRCLE;
+    private static final String PARAMETERS = "6.34";
     private static Circle circle;
-    private final double RADIUS = PARAMETERS[0];
+    private final double RADIUS = circle.getRadius();
 
     @BeforeAll
     static void createCircle(){
@@ -17,13 +17,14 @@ public class CircleTest {
     }
 
     @Test
-    void notOneParameterThrowsIllegalArgumentException() {
-        double[] invalidParameters = new double[]{3.0, 3.4};
-        String expectedExceptionMessage = "Circle must have exactly 1 parameter, but found: ";
+    void notNumberParameterThrowsIllegalArgumentException() {
+        String invalidParameter = "3.0 3.4";
+        String expectedExceptionMessage =
+                "Error when parsing Circle parameters. Make sure you enter one parameter and it is a number.";
 
         IllegalArgumentException exception = Assertions.assertThrows(
                 IllegalArgumentException.class,
-                () -> new Circle(NAME, invalidParameters));
+                () -> new Circle(NAME, invalidParameter));
 
         Assertions.assertTrue(exception.getMessage().contains(expectedExceptionMessage));
     }

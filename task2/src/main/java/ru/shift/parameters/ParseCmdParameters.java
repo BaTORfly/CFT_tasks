@@ -12,26 +12,29 @@ import java.nio.file.Paths;
 
 public class ParseCmdParameters {
     private static final Logger log = LogManager.getLogger(ParseCmdParameters.class);
+    private final Options options;
+    private final CommandLineParser parser;
 
-    public CmdParameters parse(String args[]) throws ParseException {
-        Options options = new Options();
+    public ParseCmdParameters() {
+        options = new Options();
 
-        Option inputFileOption = new Option("i", "input", true,
-                "Input text file");
+        Option inputFileOption = new Option("i", "input", true, "Input text file");
         inputFileOption.setRequired(true);
         options.addOption(inputFileOption);
 
-        Option outputToConsoleOption = new Option("c", "console", false,
-                "Output to console");
+        Option outputToConsoleOption = new Option("c", "console", false, "Output to console");
         outputToConsoleOption.setRequired(false);
         options.addOption(outputToConsoleOption);
 
-        Option outputToFileOption = new Option("f", "file", false,
-                "Output to file");
+        Option outputToFileOption = new Option("f", "file", false, "Output to file");
         outputToFileOption.setRequired(false);
         options.addOption(outputToFileOption);
 
-        CommandLineParser parser = new DefaultParser();
+        parser = new DefaultParser();
+    }
+
+    public CmdParameters parse(String args[]) throws ParseException {
+
         CommandLine cmd = parser.parse(options, args);
 
         if (!(cmd.hasOption("c") ^ cmd.hasOption("f"))) {
@@ -43,7 +46,7 @@ public class ParseCmdParameters {
             URL resourceURL = Main.class.getClassLoader().getResource(cmd.getOptionValue("i"));
             if (resourceURL == null) {
                 throw new FileNotFoundException("File " + cmd.getOptionValue("i") +
-                        " Not found in resources.");
+                        " not found in resources.");
             }
             filePath = Paths.get(resourceURL.toURI()).toString();
         } catch(FileNotFoundException ex) {
@@ -52,19 +55,11 @@ public class ParseCmdParameters {
             log.error("Incorrect path file " + ex.getMessage());
         }
 
-        CmdParameters cmdParameters = new CmdParameters(cmd.hasOption("c"), cmd.hasOption("f"), filePath);
-
-        return cmdParameters;
+        return new CmdParameters(cmd.hasOption("c"), cmd.hasOption("f"), filePath);
     }
 
     public void printHelp() {
         HelpFormatter formatter = new HelpFormatter();
-        Options options = new Options();
-
-        options.addOption("c", "console", false, "Output to console");
-        options.addOption("f", "file", false, "Output to file");
-        options.addOption("i", "input", true, "Input text file");
-
         formatter.printHelp("figures utility", options);
     }
 }
