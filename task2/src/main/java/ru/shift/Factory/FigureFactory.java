@@ -1,8 +1,5 @@
 package ru.shift.Factory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import ru.shift.Exceptions.TriangleException;
 import ru.shift.figures.Circle;
 import ru.shift.figures.Figure;
 import ru.shift.figures.Rectangle;
