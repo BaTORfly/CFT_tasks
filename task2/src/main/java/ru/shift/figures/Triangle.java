@@ -2,44 +2,26 @@ package ru.shift.figures;
 
 import ru.shift.Exceptions.TriangleException;
 
-import java.util.Arrays;
-
 public class Triangle extends Figure {
 
     private final double AB;
     private final double BC;
     private final double AC;
 
-    public Triangle(FigureTypes name, String parameterLine) throws TriangleException {
-        double[] parameters;
-        try{
-            parameters = Arrays.stream(parameterLine.trim().split("\\s+"))
-                    .mapToDouble(Double::parseDouble)
-                    .toArray();
-        } catch (NumberFormatException e){
-            throw new IllegalArgumentException
-                    ("Error parsing Triangle parameters. Ensure all parameters are numbers.");
-        }
-
-        for (double parameter : parameters){
-            if (parameter <= 0)
-                throw new IllegalArgumentException
-                        ("Triangle parameters must be positive. Found: " + parameter);
-        }
-
-        if (parameters.length != 3){
-            throw new IllegalArgumentException("Triangle must have exactly 3 parameters, but found: "
-            + parameters.length);
-        }
-
-        this.AB = parameters[0];
-        this.BC = parameters[1];
-        this.AC = parameters[2];
+    public Triangle(double AB, double BC, double AC) throws TriangleException {
+        this.AB = AB;
+        this.BC = BC;
+        this.AC = AC;
 
         if (!isTriangleValid(AB, BC, AC))
-            throw new TriangleException(
+            throw new IllegalArgumentException(
                     "Invalid triangle sides: the sum of any sides must be greater than the third side. Your sides: "
             + AB + ", " + BC + ", " + AC);
+    }
+
+    public static Triangle create(String parameterLine) throws TriangleException {
+        var doubles = Figure.parseDoubles(parameterLine, 3);
+        return new Triangle(doubles[0], doubles[1], doubles[2]);
     }
 
     public double getAB() {

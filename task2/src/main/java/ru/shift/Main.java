@@ -22,43 +22,30 @@ public class Main {
     public static void main(String[] args) throws TriangleException {
 
         log.info("The program is running...");
-        CmdParameters cmdParameters = null;
+
         ParseCmdParameters cmdParser = new ParseCmdParameters();
-        try {
-            cmdParameters = cmdParser.parse(args);
-        } catch (ParseException ex) {
-            log.error("Error parsing command-line arguments: " + ex.getMessage());
-            cmdParser.printHelp();
-        }
 
-        FigureParameters figureParameters = null;
-        try {
-            figureParameters = FigureParameters.readParametersFromFile(cmdParameters.filePath());
-        } catch (IllegalArgumentException ex) {
-            log.error("Error: " + ex.getMessage());
-        } catch (IOException ex) {
-            log.error("File reading error: " + ex.getMessage());
-        }
-        if (figureParameters == null) {
-            log.error("Failed to load figure parameters. Stopping execution.");
-        }
-
-        Figure figure = null;
         try{
-            figure = FigureFactory.createFigure(figureParameters);
-        } catch(IllegalArgumentException ex){
+            CmdParameters cmdParameters = cmdParser.parse(args);
+
+            FigureParameters figureParameters = FigureParameters.readParametersFromFile(cmdParameters.filePath());
+
+            Figure figure = FigureFactory.createFigure(figureParameters);
+
+            String figureInfo = figure.figureInfo();
+            FigureInfoWriter figureInfoWriter = new FigureInfoWriter(cmdParameters);
+            figureInfoWriter.write(figureInfo);
+        } catch (ParseException ex){
+            log.error("Error parsing command-line arguments: " + ex.getMessage());
+            System.exit(1);
+        } catch (IOException ex){
             log.error("Error: " + ex.getMessage());
+            System.exit(1);
+        } catch (IllegalArgumentException ex){
+            log.error("Error: " + ex.getMessage());
+            System.exit(1);
         }
 
-        if (figure != null) {
-            String figureInfo = figure.figureInfo();
-            try {
-                FigureInfoWriter writer = new FigureInfoWriter(cmdParameters);
-                writer.write(figureInfo);
-            } catch (IOException ex) {
-                log.error("Error writing figure info: " + ex.getMessage());
-            }
-        }
         log.info("The program completed.");
     }
 }

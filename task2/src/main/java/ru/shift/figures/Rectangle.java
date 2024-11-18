@@ -1,33 +1,17 @@
 package ru.shift.figures;
 
-import java.util.Arrays;
-
 public class Rectangle extends Figure {
     private final double length;
     private final double width;
 
-    public Rectangle(FigureTypes name, String parameterLine) {
-        double[] parameters;
-        try{
-            parameters = Arrays.stream(parameterLine.trim().split("\\s+"))
-                    .mapToDouble(Double::parseDouble)
-                    .toArray();
-        } catch(NumberFormatException ex){
-            throw new IllegalArgumentException
-                    ("Error parsing Rectangle parameters. Ensure all parameters are numbers.");
-        }
-        for (double parameter : parameters)
-        {
-            if (parameter <= 0)
-                throw new IllegalArgumentException
-                        ("Rectangle parameters must be positive. Found: " + parameter);
-        }
-        if (parameters.length != 2) {
-            throw new IllegalArgumentException("Rectangle must have exactly 2 parameters, but found: "
-                    + parameters.length);
-        }
-        this.length = Math.max(parameters[0], parameters[1]);
-        this.width = Math.min(parameters[0], parameters[1]);
+    public Rectangle(double side1, double side2) {
+        this.length = Math.max(side1, side2);
+        this.width = Math.min(side1, side2);
+    }
+
+    public static Rectangle create (String parameterLine){
+        var doubles = Figure.parseDoubles(parameterLine, 2);
+        return new Rectangle(doubles[0], doubles[1]);
     }
 
     public double getLength() {

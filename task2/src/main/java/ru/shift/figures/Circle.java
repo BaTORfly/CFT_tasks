@@ -1,21 +1,19 @@
 package ru.shift.figures;
 
-import java.security.InvalidParameterException;
-import java.util.Arrays;
-
 import static java.lang.Math.PI;
 
 public class Circle extends Figure {
     private final double radius;
 
-    public Circle(FigureTypes name, String parameterLine) {
-        try{
-            this.radius = Math.abs(Double.parseDouble(parameterLine.trim()));
-        }catch(NumberFormatException ex){
-            throw new IllegalArgumentException
-                    ("Error when parsing Circle parameters. Make sure you enter one parameter and it is a number.");
-        }
+    public Circle(double radius) {
+        this.radius = radius;
     }
+
+    public static Circle create(String parameterLine){
+        var doubles = Figure.parseDoubles(parameterLine, 1);
+        return new Circle(doubles[0]);
+    }
+
     public double getRadius() {
         return radius;
     }

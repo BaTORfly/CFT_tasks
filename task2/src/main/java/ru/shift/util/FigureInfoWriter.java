@@ -50,6 +50,8 @@ public class FigureInfoWriter {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
             writer.write(figureInfo);
             log.info("Figure information has been successfully written to " + outputFile.getAbsolutePath());
+        } catch (IOException ex) {
+            throw new IOException("Error writing figure information to " + outputFile.getAbsolutePath(), ex);
         }
     }
 

@@ -1,8 +1,8 @@
 Figure{
 name = TRIANGLE
-area = 9,92 см.
-perimeter = 15 см.
-AB = 4 см., angleC = 0,72
-BC = 6 см., angleA = 1,45
-AC = 5 см., angleB = 0,97
+area = 7,48 см.
+perimeter = 14 см.
+AB = 3 см., angleC = 0,52
+BC = 5 см., angleA = 0,98
+AC = 6 см., angleB = 1,64
 }
