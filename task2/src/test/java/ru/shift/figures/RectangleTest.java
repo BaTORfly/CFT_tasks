@@ -6,10 +6,9 @@ import org.junit.jupiter.api.Test;
 
 public class RectangleTest {
     private final double EPS = 1e-9;
-    private static final FigureTypes NAME = FigureTypes.RECTANGLE;
     private static Rectangle rectangle;
-    private final double LENGTH = 8.32;
-    private final double WIDTH = 4.56;
+    private final double LENGTH = rectangle.getLength();
+    private final double WIDTH = rectangle.getWidth();
 
     @BeforeAll
     static void createRectangle() {

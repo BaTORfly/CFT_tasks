@@ -1,7 +1,5 @@
 package ru.shift.Factory;
 
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
-import ru.shift.Exceptions.TriangleException;
 import ru.shift.figures.*;
 import ru.shift.parameters.FigureParameters;
 

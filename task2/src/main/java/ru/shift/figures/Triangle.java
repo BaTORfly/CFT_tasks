@@ -8,13 +8,13 @@ public class Triangle extends Figure {
     private final double BC;
     private final double AC;
 
-    public Triangle(double AB, double BC, double AC) throws TriangleException {
+    public Triangle(double AB, double BC, double AC) {
         this.AB = AB;
         this.BC = BC;
         this.AC = AC;
 
         if (!isTriangleValid(AB, BC, AC))
-            throw new IllegalArgumentException(
+            throw new TriangleException(
                     "Invalid triangle sides: the sum of any sides must be greater than the third side. Your sides: "
             + AB + ", " + BC + ", " + AC);
     }

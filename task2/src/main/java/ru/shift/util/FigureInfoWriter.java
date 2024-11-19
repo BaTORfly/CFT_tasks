@@ -13,8 +13,8 @@ public class FigureInfoWriter {
 
     private static final Logger log = LogManager.getLogger(FigureInfoWriter.class);
     private static final String OUTPUT_FILE_DIR = "task2/src/main/resources";
-    private boolean consoleMode;
-    private boolean fileMode;
+    private final boolean consoleMode;
+    private final boolean fileMode;
 
     public FigureInfoWriter(CmdParameters cmdParameters) {
         this.consoleMode = cmdParameters.consoleMode();

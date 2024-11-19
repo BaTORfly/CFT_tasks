@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 public class CircleTest {
     private final double EPS = 1e-9;
-    private static final FigureTypes NAME = FigureTypes.CIRCLE;
     private static final double PARAMETERS = 6.34;
     private static Circle circle;
     private final double RADIUS = circle.getRadius();
