@@ -24,18 +24,6 @@ public class Triangle extends Figure {
         return new Triangle(doubles[0], doubles[1], doubles[2]);
     }
 
-    public double getAB() {
-        return AB;
-    }
-
-    public double getBC() {
-        return BC;
-    }
-
-    public double getAC() {
-        return AC;
-    }
-
     private boolean isTriangleValid(double AB, double BC, double AC) {
         return (AB + BC > AC) && (AB + AC > BC) && (BC + AC > AB);
     }
