@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Файловый аппендер -->
+        <File name="File" fileName="task2/src/main/resources/app.log" append="false">
+            <!-- Шаблон для форматирования лога -->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p [%15.15t] %c - %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <!-- Корневой логгер с уровнем DEBUG и привязкой к аппендеру File -->
+        <Root level="debug">
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
