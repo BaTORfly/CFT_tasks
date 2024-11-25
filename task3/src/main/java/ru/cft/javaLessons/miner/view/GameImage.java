@@ -30,7 +30,6 @@ public enum GameImage {
         if (imageIcon == null) {
             imageIcon = new ImageIcon(ClassLoader.getSystemResource(fileName));
         }
-
         return imageIcon;
     }
 }
