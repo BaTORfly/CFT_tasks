@@ -1,16 +1,19 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.others;
+
+
+import ru.shift.model.gameField.listeners.HighRecordModelListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class HighScoresWindow extends JDialog {
-    public static final String DEFAULT_RECORD_TEXT = "Unknown - 999";
+public class HighRecordWindow extends JDialog implements HighRecordModelListener {
+    public static final String DEFAULT_RECORD_TEXT = "";
 
     private final JLabel noviceRecordLabel;
     private final JLabel mediumRecordLabel;
     private final JLabel expertRecordLabel;
 
-    public HighScoresWindow(JFrame owner) {
+    public HighRecordWindow(JFrame owner) {
         super(owner, "High Scores", true);
 
         GridBagLayout layout = new GridBagLayout();
@@ -85,5 +88,19 @@ public class HighScoresWindow extends JDialog {
         layout.setConstraints(okButton, gbc);
 
         return okButton;
+    }
+
+    @Override
+    public void updateHighRecord(String name, int record, int level) {
+        if (name == null || name.isEmpty()) {
+            name = "unNamed";
+        }
+
+        switch (level) {
+            case 0 -> setNoviceRecord(name, record);
+            case 1 -> setMediumRecord(name, record);
+            case 2 -> setExpertRecord(name, record);
+            default -> {}
+        }
     }
 }

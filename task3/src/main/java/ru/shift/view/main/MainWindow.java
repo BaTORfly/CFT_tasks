@@ -1,4 +1,11 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.main;
+
+
+
+import ru.shift.model.gameField.CellImage;
+import ru.shift.model.gameField.listeners.CellEventModelListener;
+import ru.shift.model.timer.listeners.GameTimerListener;
+import ru.shift.view.listeners.CellEventListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements CellEventModelListener, GameTimerListener {
     private final Container contentPane;
     private final GridBagLayout mainLayout;
 
@@ -15,7 +22,7 @@ public class MainWindow extends JFrame {
     private JMenuItem settingsMenu;
     private JMenuItem exitMenu;
 
-    private CellEventListener listener;
+    private CellEventListener cellEventListener;
 
     private JButton[][] cellButtons;
     private JLabel timerLabel;
@@ -67,7 +74,7 @@ public class MainWindow extends JFrame {
     }
 
     public void setCellListener(CellEventListener listener) {
-        this.listener = listener;
+        this.cellEventListener = listener;
     }
 
     public void setCellImage(int x, int y, GameImage gameImage) {
@@ -110,19 +117,19 @@ public class MainWindow extends JFrame {
                 cellButtons[y][x].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent e) {
-                        if (listener == null) {
+                        if (cellEventListener == null) {
                             return;
                         }
 
                         switch (e.getButton()) {
                             case MouseEvent.BUTTON1:
-                                listener.onMouseClick(x, y, ButtonType.LEFT_BUTTON);
+                                cellEventListener.onMouseClick(x, y, ButtonType.LEFT_BUTTON);
                                 break;
                             case MouseEvent.BUTTON2:
-                                listener.onMouseClick(x, y, ButtonType.RIGHT_BUTTON);
+                                cellEventListener.onMouseClick(x, y, ButtonType.MIDDLE_BUTTON);
                                 break;
                             case MouseEvent.BUTTON3:
-                                listener.onMouseClick(x, y, ButtonType.MIDDLE_BUTTON);
+                                cellEventListener.onMouseClick(x, y, ButtonType.RIGHT_BUTTON);
                                 break;
                             default:
                                 // Other mouse buttons are ignored
@@ -191,5 +198,40 @@ public class MainWindow extends JFrame {
         gbc.weightx = 0.1;
         mainLayout.setConstraints(label, gbc);
         contentPane.add(label);
+    }
+
+    @Override
+    public void changeBombsCount(int count) {
+        setBombsCount(count);
+    }
+
+    @Override
+    public void changeCellIcon(int x, int y, CellImage image) {
+        switch (image) {
+            case ZERO -> setCellImage(x, y, GameImage.EMPTY);
+            case ONE -> setCellImage(x, y, GameImage.NUM_1);
+            case TWO -> setCellImage(x, y, GameImage.NUM_2);
+            case THREE -> setCellImage(x, y, GameImage.NUM_3);
+            case FOUR -> setCellImage(x, y, GameImage.NUM_4);
+            case FIVE -> setCellImage(x, y, GameImage.NUM_5);
+            case SIX -> setCellImage(x, y, GameImage.NUM_6);
+            case SEVEN -> setCellImage(x, y, GameImage.NUM_7);
+            case EIGHT -> setCellImage(x, y, GameImage.NUM_8);
+            case CLOSED -> setCellImage(x, y, GameImage.CLOSED);
+            case FLAG -> setCellImage(x, y, GameImage.MARKED);
+            case BOMB -> setCellImage(x, y, GameImage.BOMB);
+            default -> {}
+        }
+    }
+
+    @Override
+    public void changeGameField(int rows, int cols, int bombsCount) {
+        createGameField(rows, cols);
+        setBombsCount(bombsCount);
+    }
+
+    @Override
+    public void onTimerValueUpdated(int timerValue) {
+        setTimerValue(timerValue);
     }
 }

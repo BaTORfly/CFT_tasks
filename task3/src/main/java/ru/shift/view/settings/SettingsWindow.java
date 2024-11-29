@@ -1,15 +1,20 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.settings;
+
+import ru.shift.model.gameField.LevelSettings;
+import ru.shift.model.gameField.listeners.SettingsModelListener;
+import ru.shift.view.listeners.SettingsListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingsWindow extends JDialog {
+public class SettingsWindow extends JDialog implements SettingsModelListener {
+
     private final Map<GameType, JRadioButton> radioButtonsMap = new HashMap<>(3);
     private final ButtonGroup radioGroup = new ButtonGroup();
 
-    private GameTypeListener gameTypeListener;
+    private SettingsListener difficultyController;
     private GameType gameType;
 
     public SettingsWindow(JFrame owner) {
@@ -21,7 +26,7 @@ public class SettingsWindow extends JDialog {
 
         int gridY = 0;
         contentPane.add(createRadioButton("Novice (10 mines, 9х9)", GameType.NOVICE, layout, gridY++));
-        contentPane.add(createRadioButton("Medium (40 mines, 16х16)", GameType.MEDIUM, layout, gridY++));
+        contentPane.add(createRadioButton("Medium (32 mines, 12х12)", GameType.MEDIUM, layout, gridY++));
         contentPane.add(createRadioButton("Expert (99 mines, 16х30)", GameType.EXPERT, layout, gridY++));
 
         contentPane.add(createOkButton(layout));
@@ -47,8 +52,8 @@ public class SettingsWindow extends JDialog {
         radioGroup.setSelected(radioButton.getModel(), true);
     }
 
-    public void setGameTypeListener(GameTypeListener gameTypeListener) {
-        this.gameTypeListener = gameTypeListener;
+    public void setGameTypeListener(SettingsListener difficultyController) {
+        this.difficultyController = difficultyController;
     }
 
     private JRadioButton createRadioButton(String radioButtonText, GameType gameType, GridBagLayout layout, int gridY) {
@@ -77,8 +82,8 @@ public class SettingsWindow extends JDialog {
         okButton.addActionListener(e -> {
             dispose();
 
-            if (gameTypeListener != null) {
-                gameTypeListener.onGameTypeChanged(gameType);
+            if (difficultyController != null) {
+                difficultyController.setLevel(gameType);
             }
         });
 
@@ -111,5 +116,16 @@ public class SettingsWindow extends JDialog {
         layout.setConstraints(cancelButton, gbc);
 
         return cancelButton;
+    }
+
+    @Override
+    public void changeLevel(LevelSettings level) {
+        GameType gameType = switch (level) {
+            case NOVICE -> GameType.NOVICE;
+            case MEDIUM -> GameType.MEDIUM;
+            case EXPERT -> GameType.EXPERT;
+        };
+
+        setGameType(gameType);
     }
 }

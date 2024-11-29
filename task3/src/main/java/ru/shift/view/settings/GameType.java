@@ -1,4 +1,4 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.settings;
 
 public enum GameType {
     NOVICE,

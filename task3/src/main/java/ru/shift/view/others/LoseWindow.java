@@ -1,10 +1,12 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.others;
+
+import ru.shift.model.gameField.listeners.WinAndLoseListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class LoseWindow extends JDialog {
+public class LoseWindow extends JDialog implements WinAndLoseListener {
     private ActionListener newGameListener;
     private ActionListener exitListener;
 
@@ -24,7 +26,7 @@ public class LoseWindow extends JDialog {
         setResizable(false);
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
     }
 
     public void setNewGameListener(ActionListener newGameListener) {
@@ -96,5 +98,10 @@ public class LoseWindow extends JDialog {
         layout.setConstraints(exitButton, gbc);
 
         return exitButton;
+    }
+
+    @Override
+    public void showContent() {
+        setVisible(true);
     }
 }

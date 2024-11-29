@@ -1,4 +1,4 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.main;
 
 import javax.swing.*;
 
@@ -16,8 +16,7 @@ public enum GameImage {
     NUM_8("8.png"),
     BOMB("mine.png"),
     TIMER("timer.png"),
-    BOMB_ICON("mineImage.png"),
-    ;
+    BOMB_ICON("mineImage.png");
 
     private final String fileName;
     private ImageIcon imageIcon;

@@ -1,4 +1,4 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.main;
 
 public enum ButtonType {
     LEFT_BUTTON,

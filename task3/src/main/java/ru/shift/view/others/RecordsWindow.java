@@ -1,10 +1,13 @@
-package ru.cft.javaLessons.miner.view;
+package ru.shift.view.others;
+
+import ru.shift.model.gameField.listeners.WinAndLoseListener;
+import ru.shift.view.listeners.RecordListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RecordsWindow extends JDialog {
-    private RecordNameListener nameListener;
+public class RecordsWindow extends JDialog implements WinAndLoseListener {
+    private RecordListener recordListener;
 
     public RecordsWindow(JFrame frame) {
         super(frame, "New Record", true);
@@ -24,11 +27,11 @@ public class RecordsWindow extends JDialog {
         setResizable(false);
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
     }
 
-    public void setNameListener(RecordNameListener nameListener) {
-        this.nameListener = nameListener;
+    public void setNameListener(RecordListener nameListener) {
+        this.recordListener = nameListener;
     }
 
     private JButton createOkButton(JTextField nameField) {
@@ -36,10 +39,15 @@ public class RecordsWindow extends JDialog {
         button.addActionListener(e -> {
             dispose();
 
-            if (nameListener != null) {
-                nameListener.onRecordNameEntered(nameField.getText());
+            if (recordListener != null) {
+                recordListener.setNewRecord(nameField.getText());
             }
         });
         return button;
+    }
+
+    @Override
+    public void showContent() {
+        setVisible(true);
     }
 }
