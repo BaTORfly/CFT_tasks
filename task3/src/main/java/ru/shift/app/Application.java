@@ -1,6 +1,5 @@
 package ru.shift.app;
 
-
 import ru.shift.controller.CellEventController;
 import ru.shift.controller.SettingsController;
 import ru.shift.controller.RecordController;

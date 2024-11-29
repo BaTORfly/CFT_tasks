@@ -9,9 +9,6 @@ import java.time.Instant;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Модель-таймер (игровой таймер)
- */
 @RequiredArgsConstructor
 public class GameTimer implements GameTimerModel {
 
