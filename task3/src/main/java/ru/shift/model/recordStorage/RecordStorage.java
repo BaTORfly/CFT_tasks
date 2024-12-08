@@ -2,6 +2,8 @@ package ru.shift.model.recordStorage;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.shift.model.gameField.listeners.HighRecordModelListener;
 
 import java.io.*;
@@ -11,9 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 public class RecordStorage implements RecordModel {
-
+    private static final Logger log = LogManager.getLogger(RecordStorage.class);
     private static final int MAX_COUNT_OF_RECORDS = 3;
     private static final int MAX_PARTS_OF_NAME = 3;
     private static final int NAME_INDEX = 0;

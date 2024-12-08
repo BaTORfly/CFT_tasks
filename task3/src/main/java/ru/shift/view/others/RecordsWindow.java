@@ -1,14 +1,16 @@
 package ru.shift.view.others;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.shift.model.gameField.listeners.WinAndLoseListener;
 import ru.shift.view.listeners.RecordListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-@Slf4j
 public class RecordsWindow extends JDialog implements WinAndLoseListener {
+    private static final Logger log = LogManager.getLogger(RecordsWindow.class);
     private RecordListener recordListener;
 
     public RecordsWindow(JFrame frame) {
