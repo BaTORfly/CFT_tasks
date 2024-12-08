@@ -1,11 +1,13 @@
 package ru.shift.view.others;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.shift.model.gameField.listeners.WinAndLoseListener;
 import ru.shift.view.listeners.RecordListener;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.io.IOException;
+@Slf4j
 public class RecordsWindow extends JDialog implements WinAndLoseListener {
     private RecordListener recordListener;
 
@@ -40,7 +42,12 @@ public class RecordsWindow extends JDialog implements WinAndLoseListener {
             dispose();
 
             if (recordListener != null) {
-                recordListener.setNewRecord(nameField.getText());
+                try {
+                    recordListener.setNewRecord(nameField.getText());
+                } catch (IOException ex) {
+                    log.error(ex.getMessage());
+                    System.exit(1);
+                }
             }
         });
         return button;

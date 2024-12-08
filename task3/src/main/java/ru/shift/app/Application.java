@@ -1,5 +1,6 @@
 package ru.shift.app;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.shift.controller.CellEventController;
 import ru.shift.controller.SettingsController;
 import ru.shift.controller.RecordController;
@@ -15,6 +16,9 @@ import ru.shift.view.others.RecordsWindow;
 import ru.shift.view.others.WinWindow;
 import ru.shift.view.settings.SettingsWindow;
 
+import java.io.IOException;
+
+@Slf4j
 public class Application {
     public static void main(String[] args) {
         MainWindow mainWindow = new MainWindow();
@@ -26,6 +30,7 @@ public class Application {
 
         GameTimerModel gameTimerModel = new GameTimer(mainWindow);
         RecordStorage recordStorageModel = new RecordStorage(highRecordWindow);
+
         GameEngine gameEngine = new GameEngine(
                 mainWindow,
                 settingsWindow,

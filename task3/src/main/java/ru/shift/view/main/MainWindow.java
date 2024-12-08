@@ -122,17 +122,12 @@ public class MainWindow extends JFrame implements CellEventModelListener, GameTi
                         }
 
                         switch (e.getButton()) {
-                            case MouseEvent.BUTTON1:
-                                cellEventListener.onMouseClick(x, y, ButtonType.LEFT_BUTTON);
-                                break;
-                            case MouseEvent.BUTTON2:
-                                cellEventListener.onMouseClick(x, y, ButtonType.MIDDLE_BUTTON);
-                                break;
-                            case MouseEvent.BUTTON3:
-                                cellEventListener.onMouseClick(x, y, ButtonType.RIGHT_BUTTON);
-                                break;
-                            default:
-                                // Other mouse buttons are ignored
+                            case MouseEvent.BUTTON1 -> cellEventListener.onMouseClick(x, y, ButtonType.LEFT_BUTTON);
+                            case MouseEvent.BUTTON2 -> cellEventListener.onMouseClick(x, y, ButtonType.MIDDLE_BUTTON);
+                            case MouseEvent.BUTTON3 -> cellEventListener.onMouseClick(x, y, ButtonType.RIGHT_BUTTON);
+                            default -> {
+                                // Other mouse buttons are ignored}
+                            }
                         }
                     }
                 });

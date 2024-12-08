@@ -1,8 +1,10 @@
 package ru.shift.model.recordStorage;
 
+import java.io.IOException;
+
 public interface RecordModel {
 
-    void setNewRecord(String recordName);
+    void setNewRecord(String recordName) throws IOException;
 
     Integer getRecordTime(int difficulty);
 

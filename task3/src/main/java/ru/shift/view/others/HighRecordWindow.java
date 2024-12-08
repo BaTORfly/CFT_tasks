@@ -23,13 +23,16 @@ public class HighRecordWindow extends JDialog implements HighRecordModelListener
         int gridY = 0;
 
         contentPane.add(createLabel("Novice:", layout, gridY++, 0));
-        contentPane.add(noviceRecordLabel = createLabel(DEFAULT_RECORD_TEXT, layout, gridY++, 0));
+        noviceRecordLabel = createLabel(DEFAULT_RECORD_TEXT, layout, gridY++, 0);
+        contentPane.add(noviceRecordLabel);
 
-        contentPane.add(createLabel("Medium:", layout, gridY++, 10));
-        contentPane.add(mediumRecordLabel = createLabel(DEFAULT_RECORD_TEXT, layout, gridY++, 0));
+        contentPane.add(createLabel("Medium:", layout, gridY++, 0));
+        mediumRecordLabel = createLabel(DEFAULT_RECORD_TEXT, layout, gridY++, 0);
+        contentPane.add(mediumRecordLabel);
 
-        contentPane.add(createLabel("Expert:", layout, gridY++, 10));
-        contentPane.add(expertRecordLabel = createLabel(DEFAULT_RECORD_TEXT, layout, gridY++, 0));
+        contentPane.add(createLabel("Expert:", layout, gridY++, 0));
+        expertRecordLabel = createLabel(DEFAULT_RECORD_TEXT, layout, gridY++, 0);
+        contentPane.add(expertRecordLabel);
 
         contentPane.add(createCloseButton(layout));
 

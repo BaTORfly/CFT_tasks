@@ -38,7 +38,7 @@ public class WinWindow extends JDialog implements WinAndLoseListener {
     }
 
     private JLabel createLoseLabel(GridBagLayout layout) {
-        JLabel label = new JLabel("You win!");
+        JLabel label = new JLabel("You win");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.NONE;

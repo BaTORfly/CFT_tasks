@@ -30,7 +30,7 @@ public class GameEngine implements CellEventModel, SettingsModel {
     private int flaggedCellsCount = 0;
     private int closedCellsCount = 0;
     private LevelSettings lastLevelSettings = LevelSettings.NOVICE;
-    private Random random = new Random();
+    private final Random random = new Random();
 
 
     @Override
@@ -206,9 +206,9 @@ public class GameEngine implements CellEventModel, SettingsModel {
             if (getBombsCountAround(cellToOpen) == 0) {
                 openCellsAround(cellToOpen);
             }
-        } else if (!cellToOpen.isFlagged() && cellToOpen.isBomb()) {
+        } else
             gameOver();
-        }
+
     }
 
     private boolean canOpenCell(Cell cellToOpen) {
@@ -296,10 +296,8 @@ public class GameEngine implements CellEventModel, SettingsModel {
     private int getFlagedCountAround(Cell cell){
         int flagCount = 0;
         for (Cell around : getCellsAround(cell)) {
-            if (!around.isOpened()) {
-                if (around.isFlagged()) {
-                    flagCount++;
-                }
+            if (!around.isOpened() && around.isFlagged()) {
+                flagCount++;
             }
         }
         return flagCount;
@@ -332,8 +330,6 @@ public class GameEngine implements CellEventModel, SettingsModel {
         int currentDifficulty = lastLevelSettings.getLevel();
         int currentTime = gameTimerModel.getCurrentSeconds();
 
-        winListener.showContent();
-
         Integer currentRecord = recordModel.getRecordTime(currentDifficulty - 1);
 
         if (currentRecord == null || currentTime < currentRecord) {
@@ -341,6 +337,8 @@ public class GameEngine implements CellEventModel, SettingsModel {
             recordModel.setTimeRecord(currentTime);
             recordsListener.showContent();
         }
+
+        winListener.showContent();
     }
 
     private void showAllBombs() {

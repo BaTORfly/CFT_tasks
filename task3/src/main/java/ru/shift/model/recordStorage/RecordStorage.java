@@ -56,6 +56,7 @@ public class RecordStorage implements RecordModel {
         }
 
         records.set(levelRecord, recordName + "-" + timeRecord);
+        recordTimeMap.put(levelRecord, new String[]{recordName,Integer.toString(timeRecord)});
 
         highRecordWindow.updateHighRecord(recordName, timeRecord, levelRecord);
 
@@ -67,6 +68,7 @@ public class RecordStorage implements RecordModel {
             }
         } catch (IOException e) {
             log.error(e.getMessage());
+            System.exit(1);
         }
     }
 
@@ -107,24 +109,25 @@ public class RecordStorage implements RecordModel {
     private void readAndSetRecords(FileReader fileReader) {
         try (BufferedReader br = new BufferedReader(fileReader)) {
             String line;
-            for (int diff = 0; diff < MAX_COUNT_OF_RECORDS; diff++) {
+            for (int level = 0; level < MAX_COUNT_OF_RECORDS; level++) {
                 line = br.readLine();
                 if (line != null && !line.isEmpty()) {
                     String[] nameAndTime = line.split("-");
                     highRecordWindow.updateHighRecord(
                             nameAndTime[NAME_INDEX],
                             Integer.parseInt(nameAndTime[TIME_INDEX]),
-                            diff
+                            level
                     );
 
-                    recordTimeMap.put(diff, nameAndTime);
+                    recordTimeMap.put(level, nameAndTime);
 
                 } else {
-                    recordTimeMap.put(diff, null);
+                    recordTimeMap.put(level, null);
                 }
             }
         } catch (IOException e) {
             log.error(e.getMessage());
+            System.exit(1);
         }
     }
 
