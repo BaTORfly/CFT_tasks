@@ -42,3 +42,5 @@ bin/
 .DS_Store
 ### ignore .idea ###
 .idea/
+### ignore logs in task5 ###
+task5/logs
