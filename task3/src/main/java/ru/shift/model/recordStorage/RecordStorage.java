@@ -1,7 +1,6 @@
 package ru.shift.model.recordStorage;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.shift.model.gameField.listeners.HighRecordModelListener;
