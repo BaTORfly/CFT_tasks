@@ -1,25 +1,22 @@
 package ru.shift.tasks;
 
-public abstract class Task implements Runnable {
+import java.util.concurrent.Callable;
+
+public abstract class Task implements Callable<Double> {
     protected int id;
     protected long startRow;
     protected long endRow;
-    protected double result = 0.0;
 
-    public Task(int id, long startRow, long endRow) {
+    protected Task(int id, long startRow, long endRow) {
         this.id = id;
         this.startRow = startRow;
         this.endRow = endRow;
     }
 
-    public abstract void executeTask();
+    protected abstract Double executeAndReturnTaskResult();
 
     @Override
-    public void run() {
-        executeTask();
-    }
-
-    public double getResult() {
-        return result;
+    public Double call(){
+        return executeAndReturnTaskResult();
     }
 }
