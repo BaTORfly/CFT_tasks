@@ -16,7 +16,7 @@ public class GeometricSeries extends Task {
     @Override
     public Double executeAndReturnTaskResult() {
         double result = 0.0;
-        log.info("Task #{} started execute", id);
+        log.info("Task #{} started execute. Start {}, end {}", id, startRow, endRow);
         for (long i = startRow; i <= endRow; i++) {
             result += (1.0) / Math.pow(2, i);
         }
