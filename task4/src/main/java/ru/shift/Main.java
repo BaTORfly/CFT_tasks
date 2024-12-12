@@ -22,7 +22,7 @@ public class Main {
         try{
             sum = seriesExecutor.executeSumSeries();
         } catch (TaskExecutionException e){
-            log.error("Error while executing series", e);
+            log.error("Error while executing series {}", e.getMessage());
         }
 
         log.info("Sum of series: {}", sum);

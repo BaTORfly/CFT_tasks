@@ -43,7 +43,7 @@ public class SeriesExecutor {
         try {
             sum = task.call();
         } catch (Exception e) {
-            throw new TaskExecutionException("Error while calculating in single thread: ", e);
+            throw new TaskExecutionException("Error while calculating in single thread: ");
         }
 
         return sum;
@@ -73,7 +73,7 @@ public class SeriesExecutor {
             for (Future<Double> future : futures)
                 sum += future.get();
         } catch (Exception e) {
-            throw new TaskExecutionException("Error while waiting for task completion: ", e);
+            throw new TaskExecutionException("Error while waiting for task completion: ");
         }finally {
             executorService.shutdown();
         }
