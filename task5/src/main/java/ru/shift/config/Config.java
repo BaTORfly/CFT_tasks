@@ -8,11 +8,11 @@ import java.util.Properties;
 
 @Getter
 public class Config {
-    private int producerCount;
-    private int consumerCount;
-    private long producerTime;
-    private long consumerTime;
-    private int storageSize;
+    private final int producerCount;
+    private final int consumerCount;
+    private final long producerTime;
+    private final long consumerTime;
+    private final int storageSize;
 
     public Config(String configFile) throws IOException {
         Properties prop = new Properties();
