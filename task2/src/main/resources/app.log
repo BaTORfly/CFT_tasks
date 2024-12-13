@@ -1,1 +1,2 @@
-
+2024-12-10 18:04:13 INFO  [           main] ru.shift.Main - The program is running...
+2024-12-10 18:04:13 ERROR [           main] ru.shift.Main - Error parsing command-line arguments: Missing required option: i
