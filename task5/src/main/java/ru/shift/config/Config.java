@@ -12,13 +12,13 @@ public class Config {
     private final int consumerCount;
     private final long producerTime;
     private final long consumerTime;
-    private final int storageSize;
+    private final long storageSize;
 
     public Config(String configFile) throws IOException {
         Properties prop = new Properties();
         try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(configFile)) {
             if(inputStream == null)
-                throw new IOException("Configuration file " + configFile + "not found in recources");
+                throw new IOException("Configuration file " + configFile + "not found in res  ources");
             prop.load(inputStream);
         }
         this.producerCount = Integer.parseInt(prop.getProperty("producerCount", "1"));
