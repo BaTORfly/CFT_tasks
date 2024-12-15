@@ -3,8 +3,10 @@ package ru.shift.model.recordStorage;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.shift.model.gameField.listeners.ErrorListeners;
 import ru.shift.model.gameField.listeners.HighRecordModelListener;
 
+import javax.xml.transform.ErrorListener;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class RecordStorage implements RecordModel {
     private final Map<Integer, String[]> recordTimeMap;
 
     private final HighRecordModelListener highRecordWindow;
+    private final ErrorListeners errorWindow;
 
     @Setter
     private int timeRecord;
@@ -35,8 +38,9 @@ public class RecordStorage implements RecordModel {
     private int levelRecord;
 
 
-    public RecordStorage(HighRecordModelListener highRecordWindow) {
+    public RecordStorage(HighRecordModelListener highRecordWindow, ErrorListeners errorWindow) {
         this.highRecordWindow = highRecordWindow;
+        this.errorWindow = errorWindow;
         recordTimeMap = new HashMap<>(MAX_COUNT_OF_RECORDS);
         initializeCurrentRecords();
     }
@@ -68,7 +72,7 @@ public class RecordStorage implements RecordModel {
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-            System.exit(1);
+            errorWindow.showError("File write error in RecordStorage.class","Error while writing to records file" + e.getMessage());
         }
     }
 
@@ -112,21 +116,31 @@ public class RecordStorage implements RecordModel {
             for (int level = 0; level < MAX_COUNT_OF_RECORDS; level++) {
                 line = br.readLine();
                 if (line != null && !line.isEmpty()) {
-                    String[] nameAndTime = line.split("-");
-                    highRecordWindow.updateHighRecord(
-                            nameAndTime[NAME_INDEX],
-                            Integer.parseInt(nameAndTime[TIME_INDEX]),
-                            level
-                    );
+                    int lastHyphenIndex = line.lastIndexOf('-');
+                    if (lastHyphenIndex == -1) {
+                        errorWindow.showError("Invalid record format in RecordStorage.class", "Record format is incorrect: " + line);
+                        recordTimeMap.put(level, null);
+                        continue;
+                    }
 
-                    recordTimeMap.put(level, nameAndTime);
+                    String name = line.substring(0, lastHyphenIndex);
+                    String timeStr = line.substring(lastHyphenIndex + 1);
 
+                    try {
+                        int time = Integer.parseInt(timeStr);
+                        recordTimeMap.put(level, new String[]{name, timeStr});
+                        highRecordWindow.updateHighRecord(name, time, level);
+                    } catch (NumberFormatException e) {
+                        errorWindow.showError("Invalid time format in RecordStorage.class", "The time value is not a valid number: " + timeStr);
+                        recordTimeMap.put(level, null);
+                    }
                 } else {
                     recordTimeMap.put(level, null);
                 }
             }
         } catch (IOException e) {
             log.error(e.getMessage());
+            errorWindow.showError("File read error in RecordStorage.class", "An error occurred while reading the file: " + e.getMessage());
             System.exit(1);
         }
     }

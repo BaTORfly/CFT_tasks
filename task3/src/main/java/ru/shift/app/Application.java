@@ -10,10 +10,7 @@ import ru.shift.model.recordStorage.RecordStorage;
 import ru.shift.model.timer.GameTimerModel;
 import ru.shift.model.timer.GameTimer;
 import ru.shift.view.main.MainWindow;
-import ru.shift.view.others.HighRecordWindow;
-import ru.shift.view.others.LoseWindow;
-import ru.shift.view.others.RecordsWindow;
-import ru.shift.view.others.WinWindow;
+import ru.shift.view.others.*;
 import ru.shift.view.settings.SettingsWindow;
 
 import java.io.IOException;
@@ -25,11 +22,12 @@ public class Application {
         SettingsWindow settingsWindow = new SettingsWindow(mainWindow);
         RecordsWindow recordsWindow = new RecordsWindow(mainWindow);
         HighRecordWindow highRecordWindow = new HighRecordWindow(mainWindow);
+        ErrorWindow errorWindow = new ErrorWindow(mainWindow);
         LoseWindow loseWindow = new LoseWindow(mainWindow);
         WinWindow winWindow = new WinWindow(mainWindow);
 
         GameTimerModel gameTimerModel = new GameTimer(mainWindow);
-        RecordStorage recordStorageModel = new RecordStorage(highRecordWindow);
+        RecordStorage recordStorageModel = new RecordStorage(highRecordWindow, errorWindow);
 
         GameEngine gameEngine = new GameEngine(
                 mainWindow,
