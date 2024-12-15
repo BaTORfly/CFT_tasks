@@ -2,3 +2,5 @@ rootProject.name = '2024_2_biliktuev'
 include 'task1'
 include 'task2'
 include 'task3'
+include 'task4'
+
