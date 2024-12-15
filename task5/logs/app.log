@@ -1,0 +1,45 @@
+2024-12-15 18:12:20 INFO  [     Consumer-1] ru.shift.models.Consumer - Consumer #1 started work
+2024-12-15 18:12:20 INFO  [     Consumer-2] ru.shift.models.Consumer - Consumer #2 started work
+2024-12-15 18:12:20 INFO  [     Consumer-0] ru.shift.models.Consumer - Consumer #0 started work
+2024-12-15 18:12:20 INFO  [     Producer-2] ru.shift.models.Producer - Producer #2 started work
+2024-12-15 18:12:20 INFO  [           main] ru.shift.Main - Application started. Press Ctrl+C to exit.
+2024-12-15 18:12:20 INFO  [     Consumer-3] ru.shift.models.Consumer - Consumer #3 started work
+2024-12-15 18:12:20 INFO  [     Producer-0] ru.shift.models.Producer - Producer #0 started work
+2024-12-15 18:12:20 INFO  [     Producer-1] ru.shift.models.Producer - Producer #1 started work
+2024-12-15 18:12:22 INFO  [     Consumer-3] ru.shift.logic.Storage - Consumer #3 waiting for resources to appear in the storage
+2024-12-15 18:12:22 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 waiting for resources to appear in the storage
+2024-12-15 18:12:22 INFO  [     Consumer-2] ru.shift.logic.Storage - Consumer #2 waiting for resources to appear in the storage
+2024-12-15 18:12:22 INFO  [     Consumer-1] ru.shift.logic.Storage - Consumer #1 waiting for resources to appear in the storage
+2024-12-15 18:12:23 INFO  [     Producer-2] ru.shift.logic.Storage - Resource #0 was added to the storage by Producer #2
+2024-12-15 18:12:23 INFO  [     Producer-0] ru.shift.logic.Storage - Resource #2 was added to the storage by Producer #0
+2024-12-15 18:12:23 INFO  [     Consumer-3] ru.shift.logic.Storage - Consumer #3 return to consuming resource
+2024-12-15 18:12:23 INFO  [     Producer-1] ru.shift.logic.Storage - Resource #1 was added to the storage by Producer #1
+2024-12-15 18:12:23 INFO  [     Consumer-3] ru.shift.logic.Storage - Consumer #3 was taken resource from the storage. Storage size = 2
+2024-12-15 18:12:23 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 return to consuming resource
+2024-12-15 18:12:23 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 was taken resource from the storage. Storage size = 1
+2024-12-15 18:12:23 INFO  [     Consumer-2] ru.shift.logic.Storage - Consumer #2 return to consuming resource
+2024-12-15 18:12:23 INFO  [     Consumer-2] ru.shift.logic.Storage - Consumer #2 was taken resource from the storage. Storage size = 0
+2024-12-15 18:12:25 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 waiting for resources to appear in the storage
+2024-12-15 18:12:25 INFO  [     Consumer-3] ru.shift.logic.Storage - Consumer #3 waiting for resources to appear in the storage
+2024-12-15 18:12:25 INFO  [     Consumer-2] ru.shift.logic.Storage - Consumer #2 waiting for resources to appear in the storage
+2024-12-15 18:12:26 INFO  [     Producer-2] ru.shift.logic.Storage - Resource #3 was added to the storage by Producer #2
+2024-12-15 18:12:26 INFO  [     Producer-0] ru.shift.logic.Storage - Resource #5 was added to the storage by Producer #0
+2024-12-15 18:12:26 INFO  [     Consumer-1] ru.shift.logic.Storage - Consumer #1 return to consuming resource
+2024-12-15 18:12:26 INFO  [     Consumer-1] ru.shift.logic.Storage - Consumer #1 was taken resource from the storage. Storage size = 2
+2024-12-15 18:12:26 INFO  [     Producer-1] ru.shift.logic.Storage - Resource #4 was added to the storage by Producer #1
+2024-12-15 18:12:26 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 return to consuming resource
+2024-12-15 18:12:26 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 was taken resource from the storage. Storage size = 1
+2024-12-15 18:12:26 INFO  [     Consumer-3] ru.shift.logic.Storage - Consumer #3 return to consuming resource
+2024-12-15 18:12:26 INFO  [     Consumer-3] ru.shift.logic.Storage - Consumer #3 was taken resource from the storage. Storage size = 0
+2024-12-15 18:12:28 INFO  [     Consumer-1] ru.shift.logic.Storage - Consumer #1 waiting for resources to appear in the storage
+2024-12-15 18:12:28 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 waiting for resources to appear in the storage
+2024-12-15 18:12:28 INFO  [     Consumer-3] ru.shift.logic.Storage - Consumer #3 waiting for resources to appear in the storage
+2024-12-15 18:12:29 INFO  [     Producer-2] ru.shift.logic.Storage - Resource #6 was added to the storage by Producer #2
+2024-12-15 18:12:29 INFO  [     Producer-0] ru.shift.logic.Storage - Resource #8 was added to the storage by Producer #0
+2024-12-15 18:12:29 INFO  [     Consumer-2] ru.shift.logic.Storage - Consumer #2 return to consuming resource
+2024-12-15 18:12:29 INFO  [     Consumer-2] ru.shift.logic.Storage - Consumer #2 was taken resource from the storage. Storage size = 2
+2024-12-15 18:12:29 INFO  [     Producer-1] ru.shift.logic.Storage - Resource #7 was added to the storage by Producer #1
+2024-12-15 18:12:29 INFO  [     Consumer-1] ru.shift.logic.Storage - Consumer #1 return to consuming resource
+2024-12-15 18:12:29 INFO  [     Consumer-1] ru.shift.logic.Storage - Consumer #1 was taken resource from the storage. Storage size = 1
+2024-12-15 18:12:29 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 return to consuming resource
+2024-12-15 18:12:29 INFO  [     Consumer-0] ru.shift.logic.Storage - Consumer #0 was taken resource from the storage. Storage size = 0

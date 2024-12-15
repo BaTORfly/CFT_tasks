@@ -8,42 +8,95 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Storage {
+
     private static final Logger log = LogManager.getLogger(Storage.class);
     private final long LIMIT_STORAGE_SIZE;
     private final Queue<Resource> storage;
+
+    private final Object LOCK_PRODUCE = new Object();
+    private final Object LOCK_CONSUME = new Object();
 
     public Storage(long storageSize) {
         this.LIMIT_STORAGE_SIZE = storageSize;
         storage = new LinkedList<>();
     }
 
-    public synchronized void putResource(Resource resource, int producerId) throws InterruptedException {
-        while (storage.size() >= LIMIT_STORAGE_SIZE) {
-            log.info("Storage is full. Resource id={} , producerId={} waiting",
-                    resource.getId(), producerId);
-            wait();
-        }
-        storage.add(resource);
-        log.info("Producer id={} added to storage, storage size={}", producerId, storage.size());
+    public void produce(Resource resource, int producerId) throws InterruptedException {
+        try{
+            boolean added = false;
+            boolean wasEmpty;
+            int currentSize;
+            synchronized (LOCK_PRODUCE) {
+                while (true){
+                    synchronized (storage){
+                        wasEmpty = storage.isEmpty();
+                        if (storage.size() < LIMIT_STORAGE_SIZE){
+                            storage.offer(resource);
+                            added = true;
+                        }
+                        currentSize = storage.size();
+                    }
 
-        notifyAll();
+                    if (added){
+                        log.info("Resource #{} was added to the storage by Producer #{}",
+                                resource.getId(), producerId);
+                        break;
+                    }
+
+                    log.info("Producer #{} wait space in storage", producerId);
+                    LOCK_PRODUCE.wait();
+                    log.info("Producer #{} return to producing resource", producerId);
+                }
+
+                if (currentSize < LIMIT_STORAGE_SIZE){
+                    LOCK_PRODUCE.notify();
+                }
+            }
+
+            if (wasEmpty){
+                synchronized (LOCK_CONSUME){
+                    LOCK_CONSUME.notify();
+                }
+            }
+
+        } catch (InterruptedException e) {
+            throw new InterruptedException("Exception occurred while waiting producing resource.");
+        }
     }
 
-    public synchronized void takeResource(int consumerId) {
-        while (storage.isEmpty()) {
-            try{
-                log.info("Storage is empty. Consumer id={} waiting", consumerId);
-                wait();
-            }catch(InterruptedException e) {
-                Thread.currentThread().interrupt();
-                log.error("An error occured while waiting for storage", e);
+    public void consume(int consumerId) throws InterruptedException {
+        try{
+            Resource resource;
+            int currentSize;
+            boolean wasFull;
+            synchronized (LOCK_CONSUME){
+                while (true){
+                    synchronized (storage){
+                        wasFull = storage.size() == LIMIT_STORAGE_SIZE;
+                        resource = storage.poll();
+                        currentSize = storage.size();
+                    }
+
+                    if (resource != null){
+                        log.info("Consumer #{} was taken resource from the storage. Storage size = {}",
+                                consumerId, currentSize);
+                        break;
+                    }
+
+                    log.info("Consumer #{} waiting for resources to appear in the storage", consumerId);
+                    LOCK_CONSUME.wait();
+                    log.info("Consumer #{} return to consuming resource", consumerId);
+                }
+
+                if (currentSize > 0){
+                    LOCK_CONSUME.notify();
+                }
             }
+            if (wasFull){
+                LOCK_PRODUCE.notify();
+            }
+        } catch (InterruptedException e) {
+            throw new InterruptedException("Exception occurred while waiting consuming resource");
         }
-
-        Resource resource = storage.remove();
-        log.info("Consumer id={} take recource id={}, storage size={}",
-                consumerId, resource.getId(), storage.size());
-
-        notifyAll();
     }
 }
