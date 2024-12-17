@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import ru.shift.model.gameField.listeners.ErrorListeners;
 import ru.shift.model.gameField.listeners.HighRecordModelListener;
 
-import javax.xml.transform.ErrorListener;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
